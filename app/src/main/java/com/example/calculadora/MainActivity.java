@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
     int[] Result; //Array dos números digitados
     int Total; //resultado
     static int INVALID = 9999999; //constante de erro
-    String operacao = "soma"; //variável para controle de operação
+    String operacao; //variável para controle de operação
 
     /*
     Botões:
@@ -175,6 +175,8 @@ public class MainActivity extends AppCompatActivity {
         btnSoma.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(Result[0] > 0 && Result[1] >0)
+                    sinalIgual();
                 operacao = "soma";
                 proximoNumero();
             }
@@ -183,14 +185,18 @@ public class MainActivity extends AppCompatActivity {
         btnSub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(Result[0] > 0 && Result[1] >0)
+                    sinalIgual();
                 operacao = "sub";
                 proximoNumero();
             }
         });
-
+        //mult | div
         btnMult.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(Result[0] > 0 && Result[1] >0)
+                    sinalIgual();
                 operacao = "mult";
                 proximoNumero();
             }
@@ -199,18 +205,18 @@ public class MainActivity extends AppCompatActivity {
         btnDiv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(Result[0] > 0 && Result[1] >0)
+                    sinalIgual();
                 operacao = "div";
                 proximoNumero();
             }
         });
 
+
         btnIgual.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                calcular();
-                exibirResultado(); //Trocar o resultado na tela
-                Total = 0; //Zerar o valor de total
-                count = 0; //Zerar o contador
+                sinalIgual();
             }
         });
 
@@ -220,7 +226,13 @@ public class MainActivity extends AppCompatActivity {
                 limpar();
             }
         });
+    }
 
+    private void sinalIgual(){
+        calcular();
+        exibirResultado(); //Trocar o resultado na tela
+        Total = 0; //Zerar o valor de total
+        count = 0; //Zerar o contador
     }
 
     private void exibirResultado(){
@@ -258,8 +270,9 @@ public class MainActivity extends AppCompatActivity {
             //Executa as operações e sai do switch
             case "soma": Total = (Result[0] + Result[1]); break;
             case "sub":  Total = (Result[0] - Result[1]); break;
+            //mult | div
             case "mult": Total = (Result[0] * Result[1]); break;
-            case "div": Total = (Result[0] / Result[1]); break;
+            case "div":  Total = (Result[0] / Result[1]); break;
         }
         //se for um valor inválido:
         if(Total < INVALID){
